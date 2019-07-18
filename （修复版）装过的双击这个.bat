@@ -1,12 +1,15 @@
 @echo off
-%1 mshta vbscript:CreateObject("Shell.Application").ShellExecute("cmd.exe","/c %~s0 ::","","runas",1)(window.close)&&exit
+%1 %2 
+ver|find "5.">nul&&goto :st 
+mshta vbscript:createobject("shell.application").shellexecute("%~s0","goto :st","","runas",1)(window.close)&goto :eof 
+:st 
+copy "%~0" "%windir%\system32\" 
+:: %1 mshta vbscript:CreateObject("Shell.Application").ShellExecute("cmd.exe","/c %~s0 ::","","runas",1)(window.close)&&exit
 CLS
 echo ***************************************************************************
-echo **                           Python 一键安装脚本                         **
-echo **                                                                       **
-echo **                         如安装不成功，请再次执行                      **
-echo **                                                                       **
-echo **                     本程序仅供Python爱好者安装python使用              **
+echo                           Python 一键安装脚本                        
+echo                         如安装不成功，请再次执行                      
+echo                       本程序仅供 Python 爱好者使用           
 echo ***************************************************************************
 @ping 127.0.0.1 -n 2 >nul
 set setup_flag=0
@@ -105,5 +108,3 @@ for %%a in (C D E F G H I J K L M N O P Q R S T U V W X Y Z) do (
 :end
 echo 安装完成！！
 rem start https://prod.pandateacher.com/python-manuscript/user-install-manual/windows.html
-
-
